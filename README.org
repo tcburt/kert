@@ -1,0 +1,20 @@
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t
+#+OPTIONS: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
+#+OPTIONS: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t
+#+OPTIONS: tags:t tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
+#+TITLE: README
+#+DATE: <2019-09-01 Sun>
+#+AUTHOR: Timothy C. Burt
+#+EMAIL: tcburt
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 26.1 (Org mode 9.1.4)
+
+* kert
+
+The kert suite is a set of tools and templates for generating document
+skeletons that are customized by an organization or individual. A key idea
+for templates is that many documents made by a group have a common fit and
+form, called a family, with individual document types having specialized
+content, called members.
