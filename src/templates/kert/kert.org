@@ -1,0 +1,189 @@
+* Fillmore Template Translator
+** Translator Description
+#+begin_src text
+ +-translator
+   +-family (name)
+   : +-description
+   : : +-short
+   : : +-full
+   : : +-features
+   : :   +-feature
+   : +-members
+   :   +-member (name)
+   :     +-description
+   :       +-short
+   :       +-full
+   :       +-features
+   :         +-feature  
+   +-replacements
+     +-replacement ([toggle])
+#+end_src
+    
+** Translator Instructions
+  :PROPERTIES:
+  :tangle:   kert-translator.xml
+  :END:
+
+Declare the instructions file to be XML.
+#+begin_src xml :padline no
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+#+end_src
+The Document Type Defintion (DTD) for a =translator= document 
+#+begin_src xml
+  <!DOCTYPE translator [<!-- Document -->
+   <!ELEMENT translator (family)>
+   <!-- Top level elements -->
+   <!ELEMENT family (description,members)>
+   <!ATTLIST family name CDATA #REQUIRED>
+   <!ELEMENT description (brief,full,features)>
+   <!ELEMENT members (name,description)>
+   <!ELEMENT member (description,replacements)>
+   <!ATTLIST member name CDATA #REQUIRED>
+   <!-- Description elements -->
+   <!ELEMENT brief (#PCDATA)>
+   <!ELEMENT full (#PCDATA)>
+   <!ELEMENT features (feature)>
+   <!-- Feature elements -->
+   <!ELEMENT feature (#PCDATA)>
+   <!-- Replacements -->
+   <!ELEMENT replacements (replacement)>
+   <!ELEMENT replacement (#PCDATA)>
+   <!ATTLIST replacement elemtag CDATA #REQUIRED>
+   <!ATTLIST replacement toggle (on|off) "on">
+   <!ATTLIST replacement member CDATA #IMPLIED> 
+   <!-- The five standard entities -->
+   <!ENTITY lt "&#38;#60;">
+   <!ENTITY gt "&#62;">
+   <!ENTITY amp "&#38;#38;">
+   <!ENTITY apos "&#39;">
+   <!ENTITY quot "&#34;">
+   <!-- prTemplate basic entities -->
+   <!ENTITY tmplBasename "tmplBasename">
+   <!ENTITY tmplCreationDate "tmplCreationDate">
+   <!ENTITY tmplAuthor "tmplAuthor">
+  ]>
+#+end_src
+
+#+begin_src xml
+  <translator>
+    <family name="kert">
+      <description>
+        <short>
+          Documents for the Fillmore project
+        </short>
+        <features>
+          <feature>Cover page</feature>
+          <feature>Title page</feature>
+          <feature>latexmk</feature>
+        </features>
+      </description>
+      <members>
+        <!-- ALL =================================== -->
+        <member name="ALL">
+          <description>
+            <short>
+              Applicable to all kert family members.
+            </short>
+          </description>
+          <replacements>
+            <replacement elemtag="tmplPackagesProvidesPackage">
+              \ProvidesPackage{&tmplBasename;-packages}[&tmplCreationDate; v1.0 (&tmplAuthor;)]
+            </replacement>
+            <replacement elemtag="tmplMacrosProvidesPackage">
+              \ProvidesPackage{&tmplBasename;-macros}[&tmplCreationDate; v1.0 (&tmplAuthor;)]
+            </replacement>
+            <replacement elemtag="tmplPagesProvidesPackage">
+              \ProvidesPackage{&tmplBasename;-pages}[&tmplCreationDate; v1.0 (&tmplAuthor;)]
+            </replacement>
+            <replacement elemtag="tmplCfgProvidesPackage">
+              \ProvidesPackage{&tmplBasename;-cfg}[&tmplCreationDate; v1.0 (&tmplAuthor;)]
+            </replacement>
+            <replacement elemtag="tmplCfgPrLogo">
+              \newcommand*{\prLogo}{Glass-Sun-Moon}
+            </replacement>
+            <replacement elemtag="tmplMainProjectPreamble">
+              \usepackage{&tmplBasename;-packages}
+              \usepackage{&tmplBasename;-cfg}
+              \usepackage[prdraft]{&tmplBasename;-pages}
+              \usepackage{&tmplBasename;-macros}
+            </replacement>
+            <replacement elemtag="tmplMainLoadAcronyms">
+              \loadglsentries{&tmplBasename;-Acronyms}
+            </replacement>
+            <replacement elemtag="tmplMainBoilerplate">
+              \input{&tmplBasename;_unit_Report}
+            </replacement>
+            <replacement elemtag="tmplMainLoadBibliography">
+              \bibliography{&tmplBasename;}
+            </replacement>
+          </replacements>
+        </member>
+        <!-- Technical Note =================================== -->
+        <member name="Technical Note">
+          <description>
+            <short>
+              Communicate technical information. 
+            </short>
+          </description>
+          <replacements>
+            <replacement elemtag="tmplCfgPrReportType">
+              \newcommand*{\prReportType}{Technical Note}
+            </replacement>
+            <replacement elemtag="tmplCfgPrID">
+              \newcommand*{\prID}{TN-YYYY-uid}
+            </replacement>
+            <replacement elemtag="tmplMainBoilerplate">
+              \input{&tmplBasename;_unit_Report-TechnicalNote}
+            </replacement>
+            <replacement elemtag="tmplMainCoverPage">
+              %\prCoverPage[noblankpage]
+              %\prCoverPage              
+            </replacement>
+          </replacements>
+        </member>
+        <!-- Algorithm Description Document =================================== -->
+        <member name="Algorithm Description Document">
+          <description>
+            <short>
+              Describe the details of an algorithm for implementation.
+            </short>
+          </description>
+          <replacements>
+            <replacement elemtag="tmplCfgPrReportType">
+              \newcommand*{\prReportType}{Algorithm Description Document}
+            </replacement>
+            <replacement elemtag="tmplCfgPrID">
+              \newcommand*{\prID}{ADD-YYYY-uid}
+            </replacement>
+            <replacement elemtag="tmplMainBoilerplate">
+              \input{&tmplBasename;_unit_Report-AlgorithmDescriptionDocument}
+            </replacement>
+            <replacement elemtag="tmplMainCoverPage">
+              %\prCoverPage[noblankpage]
+              %\prCoverPage              
+            </replacement>
+          </replacements>
+        </member>
+        <!-- Final Report =================================== -->
+        <member name="Final Report">
+          <description>
+            <short>
+              Communicate the results of a project.
+            </short>
+          </description>
+          <replacements>
+            <replacement elemtag="tmplCfgPrReportType">
+              \newcommand*{\prReportType}{Final Report}
+            </replacement>
+            <replacement elemtag="tmplCfgPrID">
+              \newcommand*{\prID}{FR-YYYY-uid}
+            </replacement>
+            <replacement elemtag="tmplMainBoilerplate">
+              \input{&tmplBasename;_unit_Report-FinalReportWithoutEval}
+            </replacement>
+          </replacements>
+        </member>
+      </members>
+    </family>
+  </translator>
+#+end_src

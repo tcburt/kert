@@ -1,0 +1,146 @@
+
+
+
+% ====================================================================
+\chapter{Introduction}
+\label{sec:Introduction}
+
+% --------------------------------------------------------------------
+\section{Purpose}
+\label{sec:Purpose}
+
+Describe the purpose for this algorithm.
+
+% ====================================================================
+\chapter{Algorithm Details}
+\label{sec:AlgorithmDetails}
+
+% --------------------------------------------------------------------
+\section{Algorithm Overview}
+\label{sec:AlgorithmOverview}
+
+Include an overview of the algorithm from a black box level.
+Describe how the algorithm is related to other algorithms.
+
+% --------------------------------------------------------------------
+\subsection{Algorithm Inputs}
+\label{sec:AlgorithmInputs}
+
+Describe any inputs that the algorithm uses to make
+calculations from. Inputs are summarized in \autoref{tab:CCddd-input}.
+
+\begin{table}
+  \centering
+  \caption{Input information for CCddd.}
+  \label{tab:CCddd-input}
+  \begin{CCInOutTable}
+    % Five (5) columns
+    % symbol & description & unit & range & notes \\
+    $m$ % mathematical symbol
+    & mass % short description
+    & \si{\kilo\gram} % dimension of quantity
+    & $\mathbb{R} \in (-\infty, \infty)$ % math-valid range
+    & {}\footnote{Technically this is the \emph{intertial} mass as opposed to gravitational mass.}\footnote{Negative mass is allowed by the mathematics so it is not an error. However, since negative inertial mass often yields physical paradoxes it is worth a warning.} % notes
+    \\%
+    $\vec{a}$ % mathematical symbol
+    & acceleration\footnote{One-dimensional vector, direction indicated by sign.} % short description
+    & \si{\meter\per\second\squared} % dimension of quantity
+    & $\mathbb{R} \in (-\infty, \infty)$ % math-valid range
+    \\%
+  \end{CCInOutTable}
+\end{table}
+
+
+% --------------------------------------------------------------------
+\subsection{Algorithm Outputs}
+\label{sec:AlgorithmOutputs}
+
+Describe the outputs from the algorithm. Outputs are summarized in \autoref{tab:CCddd-output}.
+
+\begin{table}
+  \centering
+  \caption{Output information for CCddd.}
+  \label{tab:CCddd-output}
+  \begin{CCInOutTable}
+    % Five (5) columns
+    % symbol & description & unit & range & notes \\
+    $\vec{F}$ % mathematical symbol
+    & force % short description
+    & \si{\newton} % dimension of quantity
+    & $\mathbb{R} \in (-\infty, \infty)$ % math-valid range
+    & % notes
+    \\%
+  \end{CCInOutTable}
+\end{table}
+
+% --------------------------------------------------------------------
+\section{Algorithm Description}
+\label{sec:AlgorithmDescription}
+
+Detailed description of the algorithm with sufficient fidelity
+to allow independent implementation.
+
+% --------------------------------------------------------------------
+\subsection{Assumptions / Limitations}
+\label{sec:AssumptionsLimitations}
+
+Describe any known limitations or assumptions that went into
+the design.  
+
+%-%% ====================================================================
+%-%\chapter{Trade Studies}
+%-%\label{sec:TradeStudies}
+%-%
+%-%Provide details and results of any trade studies used in the
+%-%design of this algorithm.  Should include any optimization studies
+%-%used to determine parameter values.  This may just be a summary with
+%-%reference to other documents.
+
+% ====================================================================
+\chapter{Algorithm Verification}
+\label{sec:AlgorithmVerification}
+
+Provide test cases and associated metrics / tolerances to be
+used to test that any implementation of the algorithm is correct. Refer to \autoref{tab:CCddd-verification} for a summary of tests.
+
+\begin{table}
+  \centering
+  \caption{Verification test cases for CCddd.}
+  \label{tab:CCddd-verification}
+  % These lengths are necessary to avoid white space from the \{top,mid,bottom}rule lines
+  \setlength{\aboverulesep}{0pt}
+  \setlength{\belowrulesep}{0pt}
+  \setlength{\extrarowheight}{.75ex}
+  \begin{tabular}{lll>{\columncolor{green}}l}
+    \toprule%
+    \multicolumn{1}{c}{\bfseries ID}%
+    &\multicolumn{1}{c}{\bfseries $m$}%
+    &\multicolumn{1}{c}{\bfseries $\vec{a}$}%
+    &\multicolumn{1}{>{\columncolor{green}}c}{\bfseries $\vec{F}$}%
+    \\%
+    \midrule%
+    1 & 1 & 1 & 1%
+    \\%
+    2 & 3.300 & -9.800 & -32.34%
+    \\%
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

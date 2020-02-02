@@ -1,0 +1,176 @@
+\NeedsTeXFormat{LaTeX2e}
+
+%<tmplPagesProvidesPackage>
+\ProvidesPackage{kert-pages}[2020/02/02 v2.0 (tcburt)]
+%</tmplPagesProvidesPackage>
+
+% Options for kert-pages
+\usepackage{eso-pic}
+\DeclareOption{prdraft}{%
+  \newcommand*{\prWatermark}{DRAFT}%
+  \AddToShipoutPicture{%
+    \AtPageLowerLeft{%
+          \rotatebox[origin=lt]{90}{%
+            \color[gray]{.75}%
+            \scalebox{5}{\prWatermark}%
+          }% End \rotatebox
+        }% End \AtPageLowerLeft
+    \AtPageUpperLeft{%
+          \rotatebox[origin=rb]{90}{%
+            \color[gray]{.75}%
+            \scalebox{5}{\prWatermark}%
+          }% End \rotatebox
+        }% End \AtPageUpperLeft
+      }% End \AddToShipoutPicture
+    }% End \DeclareOption
+
+
+\ProcessOptions*
+
+\newcommand{\prErrorConfig}[2]{%
+  \@ifundefined{#1}{%
+    \PackageError{kert-pages}{%
+      \protect#1\space must be defined.\MessageBreak
+      Requires <prj>-cfg.sty dated #2 or later.
+      SUGGESTION: kertReport.pl -admin config -cfgOld <prj>-cfg.sty
+    }{%
+      Upgrade <prj>-cfg.sty to use form of kert-cfg.sty\MessageBreak 
+      dated #2 or later%
+    }
+  }
+}
+% Signal changes that brought v0.95b
+\prErrorConfig{prStudyNumberPrescript}{2008/11/30}
+% Signal changes that brought v1.0
+\prErrorConfig{prCopyrightStatement}{2009/03/22}
+\prErrorConfig{prCenterHead}{2009/03/22}
+\prErrorConfig{prCenterFoot}{2009/03/22}
+
+
+\RequirePackage{ifthen}
+% === Layout and special pages =================================================
+
+% --- Quantity of numbered levels below chapter
+\setcounter{secnumdepth}{\prSectionNumberingDepth}
+\setcounter{tocdepth}{\prTableOfContentsNumberingDepth}
+
+% --- First set the page margins
+\geometry{%
+  left   = \prLeftMargin,
+  right  = \prRightMargin,
+  top    = \prTopMargin,
+  bottom = \prBottomMargin}
+
+
+\newdateformat{yyyymmdd}{\THEYEAR\twodigit{\THEMONTH}\twodigit{\THEDAY}}
+\newdateformat{ddMMMyyyy}{\twodigit{\THEDAY}~\monthname[\THEMONTH]~\THEYEAR}
+\ddMMMyyyy
+
+\newdate{prReportDate}{\prReportDateDay}{\prReportDateMonth}{\prReportDateYear}
+
+
+\newcommand{\prErrCheck}{No good is coming from this.}
+
+% --- Headers and footers
+% Allow for greater control by using fancy headings
+\pagestyle{fancy}
+% Encapsulate the header and foot layout in a command
+% TODO: See if the chead and cfoot can on "second" lines.
+\newcommand{\prFancyBanners}{%
+  % Heading left: Company tag
+  \lhead{\prLeftHead}
+  % Heading center: Classification
+  \chead{\prCenterHead}
+  % Heading right: Version
+  \rhead{\prRightHead}
+  
+  % Footer left: Generation date
+  \lfoot{\prLeftFoot}
+  % Footer center: Classification
+  \cfoot{\prCenterFoot}
+  % Footer right: Page n of m
+  \rfoot{\prRightFoot}
+
+  % Set the width of the line that separates the header and footer from the text
+  % body 
+  \renewcommand{\headrulewidth}{\prHeadRuleWidth}
+  \renewcommand{\footrulewidth}{\prFootRuleWidth}
+}
+
+\newcommand{\prFronticeBanners}{%
+  % Heading left: Nothing
+  \lhead{\mbox{}\newline\mbox{}}
+  % Heading center
+  \chead{\prCenterHead}
+  % Heading right: Nothing
+  \rhead{\mbox{}\newline\mbox{}}
+  
+  % Footer left: Nothing
+  \lfoot{\mbox{}}
+  % Footer center
+  \cfoot{\prCenterFoot}
+  % Footer right: Nothing
+  \rfoot{\mbox{}}
+
+  % Set the width of the line that separates the header and footer from the text
+  % body 
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+% Use the encapsulated header and footer layout for "normal" pages
+\prFancyBanners
+% Certain pages (e.g. title page, chapter page) are "plain", but we will still
+% use the encapsulated layout
+\fancypagestyle{plain}{\prFancyBanners}
+\fancypagestyle{frontice}{\prFronticeBanners}
+
+
+
+
+
+
+% ==============================================================================
+% Title page
+\newcommand{\prTitlePage}[1][]{%
+  \begin{titlepage}
+    \thispagestyle{frontice}
+    \begin{center}
+      % Logo
+      \mbox{}\hfill
+      \prLogoCommand
+      \hfill\mbox{}
+      \vfill
+      \begin{LARGE}
+        \textbf{\prTitle}\mbox{}\\[0.50cm]
+      \end{LARGE}
+      \begin{Large}
+        \prStudyNumberPrescript\space\prStudyNumber\mbox{}\\
+        \prReportType\mbox{}\\[1.0cm]
+        \prID\mbox{}\\[1.0cm]
+        \prAuthor\mbox{}\\[0.75cm]
+        \displaydate{prReportDate}\mbox{}\\
+      \end{Large}
+      \vfill
+      %
+      % Copyright
+      \ifthenelse{%
+        \not\equal{#1}{copyright}
+      }{%
+        % Do nothing if 'copyright' is not used
+      }{%
+        \begin{center}
+          \prCopyrightStatement
+        \end{center}
+      }
+      %
+      \vfill
+      \centerline{\textbf{Abstract}}
+      \prAbstract
+      \mbox{}\\[0.25cm]
+    \end{center}
+    \mbox{}
+    \newpage
+  \end{titlepage}
+  \setcounter{page}{1}
+}

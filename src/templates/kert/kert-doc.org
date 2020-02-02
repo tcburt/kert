@@ -1,0 +1,32 @@
+
+* User Documentation
+
+* Maintainer Documentation
+
+* Developer Documentation
+
+
+** TODO Report Types
+
+A report template must accomodate two main capabilities:
+ 1. Files to copy into project space
+ 2. Customization from template to project
+
+*** Mechanism ideas
+
+**** Meta Templates
+Assume that all files for a new report type are segregated from other types
+via a special directory.  Capability 1 is satisfied if all files in that
+directory are the source for the new project space.  The possibility for
+file list overrides will be addressed after introducing the concept of a
+generator configuration.
+
+The second capability, customization, can be more complex than a simple
+file rename.  
+
+** Resources
+
+ + docstrip
+   - Explains how to code a .ins file to create files from .dtx
+ + clsguide
+   - Description of tools and techniques for package authors

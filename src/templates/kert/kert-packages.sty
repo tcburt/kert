@@ -1,0 +1,114 @@
+\NeedsTeXFormat{LaTeX2e}
+
+
+%<tmplPackagesProvidesPackage>
+\ProvidesPackage{kert-packages}[2018/03/20 v1.0 (tcburt)]
+%</tmplPackagesProvidesPackage>
+
+
+
+\RequirePackage{ifthen}
+\listfiles
+
+\newboolean{kert@refcheck}
+\DeclareOption{refcheck}{\setboolean{\kert@refcheck}{true}}
+\ProcessOptions*
+
+% === General typesetting utilities
+\RequirePackage{etex}
+\RequirePackage[includehead=true,includefoot=true]{geometry}
+\RequirePackage{fancyhdr}
+\RequirePackage{lastpage}
+\RequirePackage{afterpage} % \afterpage{\clearpage}
+\RequirePackage{indentfirst}
+\RequirePackage[short,us]{datetime}
+\RequirePackage{settobox}
+\let\counterwithin\relax
+\let\counterwithout\relax
+\RequirePackage{chngcntr}
+\RequirePackage{xspace}
+\RequirePackage{comment}
+\RequirePackage{soul}
+\RequirePackage{paralist}
+\RequirePackage{float}
+\RequirePackage[section]{placeins} %auto \FloatBarrier before each section
+\RequirePackage{caption}
+\RequirePackage{titlesec}
+\RequirePackage[multiple]{footmisc}
+
+
+
+% === Color
+\RequirePackage{xcolor}
+
+
+% === Tables
+\RequirePackage{booktabs}
+\RequirePackage{multirow}
+\RequirePackage{colortbl}
+\RequirePackage{dcolumn}
+\RequirePackage{mdwlist}
+\RequirePackage{array}
+\RequirePackage{longtable}
+\RequirePackage{threeparttable}
+\RequirePackage{multicol}
+\RequirePackage{parcolumns}
+
+% === References =====================================================
+\RequirePackage{nameref} % Load explicitly before varioref
+\RequirePackage{varioref} % Must load before hyperref and attachfile
+\RequirePackage{attachfile} % Option must match hyperref's
+\RequirePackage{xr-hyper}
+\ifthenelse{\boolean{kert@refcheck}}{%
+  \RequirePackage{refcheck}
+}{}
+
+
+% === Graphics =======================================================
+\RequirePackage{graphicx}
+\RequirePackage{subfig}
+\RequirePackage{animate}
+\RequirePackage{overpic}
+\RequirePackage{lettrine}
+\RequirePackage{tikz}
+
+% === Mathematics
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{empheq}
+
+% === Physics
+\RequirePackage{physics}
+\RequirePackage{siunitx}
+
+% === Code
+\RequirePackage{listings}
+
+
+
+% === Fonts and Symbols ==============================================
+\RequirePackage[T1]{fontenc}
+\RequirePackage{textcomp}
+\RequirePackage{latexsym}
+\RequirePackage[mathcal]{euscript}
+\RequirePackage{mathrsfs}
+\RequirePackage{eufrak}
+\RequirePackage[bbgreekl]{mathbbol} % Ensure load after amsmath
+\let\SavedRightarrow=\Rightarrow 
+\RequirePackage{marvosym} 
+\let\Rightarrow=\SavedRightarrow 
+\RequirePackage[normalem]{ulem}
+\RequirePackage{stmaryrd}
+
+% === Hyper links and glossaries
+\RequirePackage{hyperref}
+\RequirePackage[%
+  acronym, % Make an acronym glossary
+  section=section, % Glossaries are at the \section level
+  numberedsection, % Number the glossary sections
+  toc, % Add glossaries to the Table of Contents
+  nonumberlist, % Do not include page numbers in glossaries
+  sanitize={symbol=false}
+  ]{glossaries}%% Must load after hyperref
+
+

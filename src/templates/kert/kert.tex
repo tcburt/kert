@@ -1,0 +1,101 @@
+\RequirePackage{snapshot}
+\documentclass{report}
+%<tmplMainProjectPreamble>
+\usepackage{kert-packages}
+\usepackage{kert-cfg}
+\usepackage[prdraft]{kert-pages}
+\usepackage{kert-macros}
+%</tmplMainProjectPreamble>
+
+
+% To use bibliography 
+%  1. Uncomment \includecomment line 
+% and
+%  2. Comment \excludecomment line
+\includecomment{reportBibliography}
+%\excludecomment{reportBibliography}
+
+
+
+
+% Include Acronyms and other glossaries
+%<tmplMainLoadAcronyms>
+\loadglsentries{kert-Acronyms}
+%</tmplMainLoadAcronyms>
+\makeglossaries
+
+% ====================================================================
+% Start the document contents
+\begin{document}
+
+
+
+%<tmplMainTitlePage>
+%\prTitlePage[abstract]
+\prTitlePage
+%</tmplMainTitlePage>
+
+
+%<tmplMainTableOfContents>
+% Table of Contents
+\cleardoublepage \phantomsection
+\addcontentsline{toc}{\prTOCLevel}{\contentsname}
+\tableofcontents 
+%</tmplMainTableOfContents>
+
+%<tmplMainListOfFigures>
+% List of Figures
+%\cleardoublepage \phantomsection
+\addcontentsline{toc}{\prTOCLevel}{\listfigurename}
+\label{lof}
+\listoffigures 
+%</tmplMainListOfFigures>
+
+%<tmplMainListOfTables>
+% List of Tables
+%\cleardoublepage \phantomsection
+\addcontentsline{toc}{\prTOCLevel}{\listtablename}
+\listoftables 
+%</tmplMainListOfTables>
+
+% Include content from unit files
+\cleardoublepage
+%<tmplMainBoilerplate>
+\input{kert_unit_Report}
+%</tmplMainBoilerplate>
+
+
+
+% --------------------------------------------------------------------
+% Begin appendices
+
+\appendix
+\cleardoublepage \phantomsection
+\addcontentsline{toc}{chapter}{Appendices}
+\chapter{Supporting Information}
+
+%<tmplMainAcronymList>
+% Acronyms
+\renewcommand*{\glspostdescription}{}
+\printglossary[type=\acronymtype] 
+\renewcommand*{\glspostdescription}{.}
+%</tmplMainAcronymList>
+
+%<tmplMainBibliographicList>
+\begin{reportBibliography} %
+% Bibliography
+\cleardoublepage \phantomsection
+%\phantomsection
+\addcontentsline{toc}{\prBibLevel}{\bibname}
+\bibliographystyle{unsrt}
+\begin{raggedright}
+%<tmplMainLoadBibliography>
+\bibliography{kert-References}
+%</tmplMainLoadBibliography>
+\end{raggedright}
+\end{reportBibliography}
+%</tmplMainBibliographicList>
+
+
+
+\end{document}

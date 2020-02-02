@@ -1,0 +1,175 @@
+%<SKIP>
+%<tmplCfgProvidesPackage>
+\ProvidesPackage{kert-cfg}[2009/09/22 v1.02 (tcburt)]
+%</tmplCfgProvidesPackage>
+
+%<MODIFY>
+% ##############################################################################
+% For the impatient: Change all entries (that apply) up to </MODIFY>
+%
+% DIRECTION to MODIFY
+% The settings to the mark </MODIFY> *must* be modified to
+% reflect the details of the report, unless of course you want the
+% reader to know that the report was unencumbered by the thought process.
+%
+% Document identification 
+\newcommand*{\prTopBanner}{Non impediti ratione cogitatonis}
+\newcommand*{\prBottomBanner}{Quidquid Latine dictum sit altum videtur}
+\newcommand*{\prAuthor}{Hans Krampt}
+\newcommand*{\prTitle}{The Peace of Paper}
+\newcommand*{\prAbstract}{%
+    ``Either this is madness or it is Hell.'' ``It is neither,'' calmly
+    replied the voice of the Sphere, ``it is Knowledge; it is Three
+    Dimensions: open your eye once again and try to look steadily.'' ---
+    Edwin Abbot in Flatland
+} 
+\newcommand*{\prStudyNumberPrescript}{PRJ Study}
+\newcommand*{\prStudyNumber}{031407}
+%<tmplCfgPrID>
+\newcommand*{\prID}{DID-YYYY-uid}
+% </tmplCfgPrID>
+\newcommand*{\prVersion}{0.1} 
+%<tmplCfgPrReportType>
+\newcommand*{\prReportType}{Final Report}
+%</tmplCfgPrReportType>
+\newcommand*{\prGroup}{Octahedral, SU(2)}
+\newcommand*{\prKeywords}{\prGroup; \prID; \prStudyNumber; \prAuthor}
+
+% Document date
+\newcommand*{\prReportDateYear}{2038} 
+\newcommand*{\prReportDateMonth}{01}
+\newcommand*{\prReportDateDay}{19}
+\newcommand*{\prYearsToRetain}{50}
+
+% MODIFICATION: Removed approval dates
+
+% Principal investigator information
+\newcommand*{\prPrincipalInvestigator}{Nutmeg Incense}
+\newcommand*{\prPIPhone}{(555) 422-4663}   
+\newcommand*{\prPIEmail}{nutmeg.incense@anythi.ng}  
+
+%</MODIFY>
+
+
+
+
+
+
+%<ENSURE>
+% ##############################################################################
+% For the impatient: Check, but probably don't change, all entries
+% (that apply) up to </ENSURE> 
+%
+% RECOMMENDATION to ENSURE
+% Settings to the mark </ENSURE> probably don't need to be
+% changed by authors, but the author should ensure that the settings
+% are correct for their project.
+% ==============================================================================
+% Ensure that the paths are correct
+\newcommand*{\prPathAcronyms}{.}
+\newcommand*{\prPathBibliography}{.}
+
+% ====================================================================
+% Headers and footers
+\newcommand*{\prLeftHead}{\mbox{}\newline{}}
+\newcommand*{\prCenterHead}{\textsc{\prTopBanner}\mbox{}\\}
+\newcommand*{\prRightHead}{\mbox{}\newline\prID}
+\newcommand*{\prLeftFoot}{v. \prVersion}
+\newcommand*{\prCenterFoot}{\mbox{}\newline\textsc{\prBottomBanner}}
+\newcommand*{\prRightFoot}{\thepage\ of \pageref{LastPage}}
+% === Hypertext configuration ==================================================
+
+\definecolor{prLinkColor}{rgb}{0, 0, 80} 
+\hypersetup{%
+  extension   = pdf,
+  pagebackref = true,
+  linktocpage = false,
+  raiselinks  = true,
+  breaklinks  = true,
+  colorlinks  = true,
+  linkcolor   = prLinkColor,
+  citecolor   = prLinkColor,
+  pagecolor   = prLinkColor,
+  filecolor   = prLinkColor,
+  urlcolor    = prLinkColor,
+  anchorcolor = prLinkColor,
+  pdftitle    = {\prTitle},
+  pdfauthor   = {\prPrincipalInvestigator},
+  pdfsubject  = {\prReportType},
+  pdfkeywords = {\prKeywords}
+}
+
+
+% ==============================================================================
+% Coverpage and titlepage settings
+
+
+
+
+
+\newcommand*{\prCopyrightStatement}{%
+  \textcopyright\prReportDateYear{} \prAuthor
+}
+
+%<tmplCfgPrLogo>
+\newcommand*{\prLogo}{Glass-Sun-Moon-soft}
+%</tmplCfgPrLogo>
+\newcommand*{\prLogoCommand}{\includegraphics[width=5cm]{\prLogo}}
+
+
+%</ENSURE>
+
+
+%<IGNORE>
+% ##############################################################################
+% For the impatient: Ignore the entries up to </IGNORE> unless you
+% know what you are doing.
+%
+% RECOMMENDATION to IGNORE
+% Settings to the mark </IGNORE> affect decisions of style that are probably
+% better left alone. 
+% ==============================================================================
+% Page geometry settings
+\setlength{\headheight}{24pt}
+\newcommand*{\prLeftMargin}{0.75in}
+\newcommand*{\prRightMargin}{0.75in}
+\newcommand*{\prTopMargin}{0.75in}
+\newcommand*{\prBottomMargin}{0.75in}
+
+% ==============================================================================
+% Header and footer settings
+\newcommand*{\prHeadRuleWidth}{0.0pt}
+\newcommand*{\prFootRuleWidth}{0.0pt}
+
+% ==============================================================================
+% Style settings
+
+% Depths of sectioning
+\newcommand*{\prTOCLevel}{section}
+\newcommand*{\prBibLevel}{section}
+\newcommand*{\prSectionNumberingDepth}{4}
+\newcommand*{\prTableOfContentsNumberingDepth}{4}
+
+% Setup numbering
+\counterwithout{footnote}{chapter}
+
+% Names of document lists
+\renewcommand*{\contentsname}{Table of Contents}
+\renewcommand*{\bibname}{Bibliography}
+\renewcommand*{\listfigurename}{List of Figures}
+\renewcommand*{\listtablename}{List of Tables}
+\renewcommand*{\acronymname}{Acronym}
+
+% Chapter title presentation (using titlesec package commands)
+\titleclass{\chapter}{straight} % 'straight' = chapter can start mid-page 
+\titleformat{\chapter}[hang]{\bfseries\LARGE}{\thechapter}{1pc}{} 
+\titlespacing{\chapter}{0pt}{*2}{*1}
+
+
+% ===== Package overrides ===========================
+% -- Acronym links via the glossaries package can be sent to the line
+%    *after* the acronym.  Fix this behavior by using \Hy@raisedlink
+\renewcommand*{\@glstarget}[2]{\Hy@raisedlink{\hypertarget{#1}{}}#2}
+
+
+%</IGNORE>

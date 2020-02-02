@@ -1,0 +1,182 @@
+
+%<tmplMacrosProvidesPackage>
+\ProvidesPackage{kert-macros}[2012/03/18 v1.0 (tcburt)]
+%</tmplMacrosProvidesPackage>
+
+% === consistency ======================================================
+% \mpnc[<alternativeMark>]: math punctuation (period without option)
+\newcommand*{\mpnc}[1][.]{\,#1}
+
+
+
+% === citing ===========================================================
+
+% === tables ===========================================================
+
+\newenvironment{CCInOutTable}{%
+  \begin{minipage}{\linewidth}%
+    \centering
+    \begin{tabular}{llllr}%
+      \toprule%
+      \multicolumn{1}{c}{\bfseries Symbol}%
+      &\multicolumn{1}{c}{\bfseries Description}%
+      &\multicolumn{1}{c}{\bfseries Units}%
+      &\multicolumn{1}{c}{\bfseries Range}%
+      &\multicolumn{1}{c}{\bfseries Notes}%
+      \\%
+      \midrule%
+    }{%
+      \bottomrule%
+    \end{tabular}%
+  \end{minipage}%
+}%
+
+% Programmer's note: I have tried including optional arguments to this
+%                    command, but obtain a "misplaced \omit" error.
+%                    See the following thread (Misplaced \omit) on
+%                    comp.text.tex
+%  http://groups.google.com/group/comp.text.tex/browse_thread/thread/421140cdca54e250/c9e2796bd2ef1fad?lnk=gst&q=%2Bmulticolumn+%2Boptional+%2Bdefault#c9e2796bd2ef1fad
+\newcommand*{\kertTblHdrFour}[6]{%
+  % First two variables for general seteup (e.g. color), and
+  % the rest for column headings.
+  % #1: Pre-specifier declaration (e.g. \columncolor[gray]{0.5})
+  % #2: Cell setup (e.g. \color{white}\bfseries)
+     \multicolumn{1}{|>{#1}c|}{#2 #3}
+    & \multicolumn{1}{>{#1}c|}{#2 #4}
+    & \multicolumn{1}{>{#1}c|}{#2 #5}
+    & \multicolumn{1}{>{#1}c|}{#2 #6}
+}
+\newcommand*{\kertTblHdrFive}[7]{%
+  % First two variables for general seteup (e.g. color), and
+  % the rest for column headings.
+  % #1: Pre-specifier declaration (e.g. \columncolor[gray]{0.5})
+  % #2: Cell setup (e.g. \color{white}\bfseries)
+     \multicolumn{1}{|>{#1}c|}{#2 #3}
+    & \multicolumn{1}{>{#1}c|}{#2 #4}
+    & \multicolumn{1}{>{#1}c|}{#2 #5}
+    & \multicolumn{1}{>{#1}c|}{#2 #6}
+    & \multicolumn{1}{>{#1}c|}{#2 #7}
+}
+\newcommand*{\kertTblHdrSix}[8]{%
+  % First two variables for general seteup (e.g. color), and
+  % the rest for column headings.
+  % #1: Pre-specifier declaration (e.g. \columncolor[gray]{0.5})
+  % #2: Cell setup (e.g. \color{white}\bfseries)
+     \multicolumn{1}{|>{#1}c|}{#2 #3}
+    & \multicolumn{1}{>{#1}c|}{#2 #4}
+    & \multicolumn{1}{>{#1}c|}{#2 #5}
+    & \multicolumn{1}{>{#1}c|}{#2 #6}
+    & \multicolumn{1}{>{#1}c|}{#2 #7}
+    & \multicolumn{1}{>{#1}c|}{#2 #8}
+}
+
+
+
+% === Units ============================================================
+% Requires siunitx package.
+% Imperial units: inch, foot, mile, pound
+\DeclareSIUnit{\inch}{in}
+\DeclareSIUnit{\foot}{ft}
+\DeclareSIUnit{\mile}{mi}
+\DeclareSIUnit{\pound}{lb}
+% Image units: pixel, line, sample, frame
+\DeclareSIUnit{\pixel}{px}
+\DeclareSIUnit{\line}{ln}
+\DeclareSIUnit{\sample}{samp}
+\DeclareSIUnit{\frame}{frm}
+% Wave units: cycle
+\DeclareSIUnit{\cycle}{cyc}
+
+
+
+
+% === Foreign phrases ==================================================
+\newcommand*{\foreignPhrase}[1]{\emph{#1}}
+\newcommand*{\fpie}{\foreignPhrase{i.e.}\xspace}
+\newcommand*{\fpeg}{\foreignPhrase{e.g.}\xspace}
+
+% ====================================================================
+% Change style of URLs to be smaller.  Requires use of url package.
+\def\url@kertstyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
+\urlstyle{kert}
+
+
+% =====================================================================
+% \xxiv time provides 24-hour time. \timestamp includes date at now
+%-%\newcount\@DT@modctr
+%-%\newcount\@dtctr
+%-%\def\@modulo#1#2{%
+%-%  \@DT@modctr=#1\relax
+%-%  \divide \@DT@modctr by #2\relax
+%-%  \multiply \@DT@modctr by #2\relax
+%-%  \advance #1 by -\@DT@modctr
+%-%}
+%-%\newcommand{\xxivtime}{%
+%-%  \@dtctr=\time%
+%-%  \divide\@dtctr by 60
+%-%  \ifnum\@dtctr<10 0\fi\the\@dtctr:%
+%-%  \@dtctr=\time%
+%-%  \@modulo{\@dtcr}{60}%
+%-%  \ifnum\@dtct<10 0\fi\the\@dtctr%
+%-%}
+\newcommand{\timestamp}{%
+  \the\year-\ifnum\month<10 0\fi\the\month-%
+  \ifnum\day<10 0\fi\the\day\ \xxivtime%
+}
+
+% ============================================================
+% Darken the page for image viewing.
+%   Requires:
+%     - color or xcolor
+%     - graphicx
+%     - calc
+%
+% First define the command that places an image on a page with colors
+% and boxes.
+\newcommand{\displayImage}[8][]{%
+  % 1: Options
+  % 2: image
+  % 3: fraction of textwidth for image
+  % 4: background (page) color
+  % 5: page text color
+  % 6: image pad color
+  % 7: image outline color
+  % 8: image outline width
+  %%%%%
+  % Set the background color
+  \pagecolor{#4}%
+  % Set the color of page text
+  \color{#5}%
+  % Make a box for padding with same color for background and
+  % frame
+  \fcolorbox{#6}{#6}{%
+    % Calculate the pad amount above and below to match left and
+    % right
+    \setlength{\fboxsep}{\textwidth-\textwidth*\real{#3}}%
+    \setlength{\fboxsep}{0.5\fboxsep}%
+    % Make the frame for the image invisible
+    \setlength{\fboxrule}{0pt}%
+    % Create a frame extending the full textwidth around image
+    \framebox[\textwidth][c]{%
+      % Squeeze out padding above and below for the outline
+      \setlength{\fboxsep}{0pt}%
+      % Set the width of the outline
+      \setlength{\fboxrule}{#8}%
+      % Set the color of the outline
+      \color{#7}%
+      % Make the outline
+      \framebox{\includegraphics[width=#3\textwidth]{#2}}%
+    }
+  }
+}
+%
+% Now make a command that could be a standard usage of \displayImage,
+% specifically an image 3/4 text width on black page with gray padding
+% and page text.
+\newcommand{\stdDisplayImage}[2][]{%
+  % 1: Options
+  % 2: image
+  %%%%%
+  \displayImage{#2}{0.75}{black}{gray}{gray}{black}{3pt}%
+}
