@@ -1,0 +1,12 @@
+* Versions
+** 1.0
+Initial stable release
+*** Features
+  - Works on both Linux and Windows
+  - One template document family (kert) with three members (Concept
+    Calculations, Technical Note, and Technical Report)
+  - Example template (kert)
+
+*** Testing
+  - Python 3 (Anaconda distribution) on Linux and Windows 10
+  - LaTeX (TeX Live 2018 distribution) on Linux and Windows 10

@@ -4,10 +4,11 @@ The kertPR script generates a LaTeX project report based on templates.
 """
 
 # Defaults
-__dirTemplates__ = "../tex/latex/prTemplates"
+__dirTemplates__ = "../src/templates/kert"
 __appname__ = "kertPR"
 __author__ = "Timothy C. Burt"
-__version__ = 0.01
+__email__ = "rketburt@gmail.com"
+__version__ = 1.0
 
 # ==========================================================
 # Module-level imports
